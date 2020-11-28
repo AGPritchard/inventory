@@ -34,8 +34,8 @@ __meta__ = {
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
 margin_right = 188.0
-custom_constants/vseparation = 5
-custom_constants/hseparation = 5
+custom_constants/vseparation = 2
+custom_constants/hseparation = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }

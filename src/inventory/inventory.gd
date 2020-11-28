@@ -153,7 +153,7 @@ func _on_SortButton_pressed() -> void:
 		# update alpha if search bar contains data
 		if !$VBoxContainer/HBoxContainer/SearchBar.text.empty():
 			item_slot.modulate.a = 1.0
-			if item_slot.hint_tooltip.to_upper() != $VBoxContainer/HBoxContainer/SearchBar.text.to_upper():
+			if !($VBoxContainer/HBoxContainer/SearchBar.text.to_upper() in item_slot.hint_tooltip.to_upper()):
 				item_slot.modulate.a = 0.25
 
 func _on_RandomiseButton_pressed() -> void:
@@ -199,5 +199,6 @@ func _on_SearchBar_text_changed(new_text: String) -> void:
 			
 			# reset alpha and then update if a match occurs
 			item_slot.modulate.a = 1.0
-			if item_slot.hint_tooltip.to_upper() != new_text.to_upper():
+			
+			if !(new_text.to_upper() in item_slot.hint_tooltip.to_upper()):
 				item_slot.modulate.a = 0.25

@@ -117,6 +117,23 @@ func _on_SortButton_pressed() -> void:
 			ITEM_TYPES.NONE:
 				item_slot.texture = null
 				item_slot.hint_tooltip = ""
+		
+		# update alpha if search bar contains data
+		if !$VBoxContainer/HBoxContainer/SearchBar.text.empty():
+			item_slot.modulate.a = 1.0
+			if item_slot.hint_tooltip.to_upper() != $VBoxContainer/HBoxContainer/SearchBar.text.to_upper():
+				item_slot.modulate.a = 0.25
 
-func _on_SearchBar_text_entered(new_text: String) -> void:
-	pass
+func _on_SearchBar_text_changed(new_text: String) -> void:
+	if new_text.empty():
+		for i in inventory.size():
+			var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
+			item_slot.modulate.a = 1.0
+	else:
+		for i in inventory.size():
+			var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
+			
+			# reset alpha and then update if a match occurs
+			item_slot.modulate.a = 1.0
+			if item_slot.hint_tooltip.to_upper() != new_text.to_upper():
+				item_slot.modulate.a = 0.25

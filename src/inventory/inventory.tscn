@@ -59,4 +59,4 @@ margin_bottom = 24.0
 size_flags_horizontal = 3
 placeholder_text = "search..."
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/SortButton" to="." method="_on_SortButton_pressed"]
-[connection signal="text_entered" from="VBoxContainer/HBoxContainer/SearchBar" to="." method="_on_SearchBar_text_entered"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/SearchBar" to="." method="_on_SearchBar_text_changed"]

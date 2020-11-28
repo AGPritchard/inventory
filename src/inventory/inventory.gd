@@ -5,6 +5,7 @@ enum ITEM_TYPES {
 	BOW,
 	SWORD,
 	SHIELD,
+	NONE,
 }
 
 export(int) var slot_count := 9
@@ -34,5 +35,7 @@ func _ready() -> void:
 				texture_rect.texture = orange_sword_texture
 			ITEM_TYPES.SHIELD:
 				texture_rect.texture = red_shield_texture
+			ITEM_TYPES.NONE:
+				continue
 		
 		$GridContainer.add_child(texture_rect)

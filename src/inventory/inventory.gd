@@ -27,7 +27,7 @@ func _ready() -> void:
 	$VBoxContainer/GridContainer.columns = columns
 	for i in slot_count:
 		var item_slot = TextureRect.new()
-		item_slot.rect_min_size = Vector2(20, 20)
+		item_slot.rect_min_size = Vector2(24, 24)
 		item_slot.expand = true
 		item_slot.name = str(i)
 		
@@ -138,7 +138,7 @@ func _on_RandomiseButton_pressed() -> void:
 		item_slot.texture = null
 		item_slot.hint_tooltip = ""
 		
-		# pick a random item type
+		# pick a random item type and update item slot
 		var choice: int = ITEM_TYPES.values()[randi() % ITEM_TYPES.size()]
 		match choice:
 			ITEM_TYPES.STAFF:

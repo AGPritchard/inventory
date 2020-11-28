@@ -20,6 +20,11 @@ var green_bow_texture := preload("res://assets/items/green_bow.png")
 var orange_sword_texture := preload("res://assets/items/orange_sword.png")
 var red_shield_texture := preload("res://assets/items/red_shield.png")
 
+var selected_blue_staff_texture := preload("res://assets/items/blue_staff_selected.png")
+var selected_green_bow_texture := preload("res://assets/items/green_bow_selected.png")
+var selected_orange_sword_texture := preload("res://assets/items/orange_sword_selected.png")
+var selected_red_shield_texture := preload("res://assets/items/red_shield_selected.png")
+
 func _ready() -> void:
 	VisualServer.set_default_clear_color(Color8(41, 30, 49, 255))
 	randomize()
@@ -62,14 +67,38 @@ func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 			if selected_item.empty():
 				selected_item["slot_number"] = slot_number
 				selected_item["item_type"] = inventory[slot_number]
+				
+				# change to selected texture
+				var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
+				match inventory[slot_number]:
+					ITEM_TYPES.STAFF:
+						item_slot.texture = selected_blue_staff_texture
+					ITEM_TYPES.BOW:
+						item_slot.texture = selected_green_bow_texture
+					ITEM_TYPES.SWORD:
+						item_slot.texture = selected_orange_sword_texture
+					ITEM_TYPES.SHIELD:
+						item_slot.texture = selected_red_shield_texture
 			else:
+				var target_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
+				var selected_slot: TextureRect = $VBoxContainer/GridContainer.get_child(selected_item["slot_number"])
+				
+				# change back to normal texture
+				match selected_item["item_type"]:
+					ITEM_TYPES.STAFF:
+						selected_slot.texture = blue_staff_texture
+					ITEM_TYPES.BOW:
+						selected_slot.texture = green_bow_texture
+					ITEM_TYPES.SWORD:
+						selected_slot.texture = orange_sword_texture
+					ITEM_TYPES.SHIELD:
+						selected_slot.texture = red_shield_texture
+				
 				# swap items
 				inventory[selected_item["slot_number"]] = inventory[slot_number]
 				inventory[slot_number] = selected_item["item_type"]
-				
+
 				# swap textures
-				var target_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
-				var selected_slot: TextureRect = $VBoxContainer/GridContainer.get_child(selected_item["slot_number"])
 				var selected_item_texture := selected_slot.texture
 				selected_slot.texture = target_slot.texture
 				target_slot.texture = selected_item_texture

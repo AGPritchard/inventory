@@ -126,6 +126,36 @@ func _on_SortButton_pressed() -> void:
 			if item_slot.hint_tooltip.to_upper() != $VBoxContainer/HBoxContainer/SearchBar.text.to_upper():
 				item_slot.modulate.a = 0.25
 
+func _on_RandomiseButton_pressed() -> void:
+	# clear inventory
+	inventory = {}
+	selected_item = {}
+	
+	for i in slot_count:
+		var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
+		
+		# clear item slot
+		item_slot.texture = null
+		item_slot.hint_tooltip = ""
+		
+		# pick a random item type
+		var choice: int = ITEM_TYPES.values()[randi() % ITEM_TYPES.size()]
+		match choice:
+			ITEM_TYPES.STAFF:
+				item_slot.texture = blue_staff_texture
+				item_slot.hint_tooltip = "Blue Staff"
+			ITEM_TYPES.BOW:
+				item_slot.texture = green_bow_texture
+				item_slot.hint_tooltip = "Green Bow"
+			ITEM_TYPES.SWORD:
+				item_slot.texture = orange_sword_texture
+				item_slot.hint_tooltip = "Orange Sword"
+			ITEM_TYPES.SHIELD:
+				item_slot.texture = red_shield_texture
+				item_slot.hint_tooltip = "Red Shield"
+		
+		inventory[i] = choice
+
 func _on_SearchBar_text_changed(new_text: String) -> void:
 	if new_text.empty():
 		can_swap = true

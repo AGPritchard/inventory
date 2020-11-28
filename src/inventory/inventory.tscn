@@ -33,7 +33,7 @@ __meta__ = {
 }
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
-margin_right = 105.0
+margin_right = 188.0
 custom_constants/vseparation = 5
 custom_constants/hseparation = 5
 __meta__ = {
@@ -42,22 +42,29 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 20.0
-margin_right = 105.0
+margin_right = 188.0
 margin_bottom = 44.0
 custom_constants/separation = 5
 
 [node name="SortButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_right = 42.0
+margin_right = 37.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "Sort"
 
+[node name="RandomiseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 42.0
+margin_right = 125.0
+margin_bottom = 24.0
+text = "Randomise"
+
 [node name="SearchBar" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
-margin_left = 47.0
-margin_right = 105.0
+margin_left = 130.0
+margin_right = 188.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 clear_button_enabled = true
 placeholder_text = "search..."
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/SortButton" to="." method="_on_SortButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/RandomiseButton" to="." method="_on_RandomiseButton_pressed"]
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/SearchBar" to="." method="_on_SearchBar_text_changed"]

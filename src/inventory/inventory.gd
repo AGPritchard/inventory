@@ -89,7 +89,34 @@ func _on_item_slot_mouse_exited(slot_number: int) -> void:
 	item_slot.rect_scale = Vector2(1, 1)
 
 func _on_SortButton_pressed() -> void:
-	pass
+	# sort inventory
+	for i in range(1, inventory.size(), 1):
+		var item = inventory[i]
+		var j = i - 1
+		while j >= 0 and item < inventory[j]:
+			inventory[j + 1] = inventory[j]
+			j -= 1
+		inventory[j + 1] = item
+	
+	# update ui
+	for i in inventory.size():
+		var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
+		match inventory[i]:
+			ITEM_TYPES.STAFF:
+				item_slot.texture = blue_staff_texture
+				item_slot.hint_tooltip = "Blue Staff"
+			ITEM_TYPES.BOW:
+				item_slot.texture = green_bow_texture
+				item_slot.hint_tooltip = "Green Bow"
+			ITEM_TYPES.SWORD:
+				item_slot.texture = orange_sword_texture
+				item_slot.hint_tooltip = "Orange Sword"
+			ITEM_TYPES.SHIELD:
+				item_slot.texture = red_shield_texture
+				item_slot.hint_tooltip = "Red Shield"
+			ITEM_TYPES.NONE:
+				item_slot.texture = null
+				item_slot.hint_tooltip = ""
 
 func _on_SearchBar_text_entered(new_text: String) -> void:
 	pass

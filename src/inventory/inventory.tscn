@@ -27,6 +27,8 @@ margin_left = -20.0
 margin_top = -20.0
 margin_right = 20.0
 margin_bottom = 20.0
+custom_constants/vseparation = 5
+custom_constants/hseparation = 5
 __meta__ = {
 "_edit_use_anchors_": false
 }

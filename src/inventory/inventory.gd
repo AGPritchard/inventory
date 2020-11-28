@@ -193,6 +193,20 @@ func _on_ResetButton_pressed() -> void:
 				item_slot.modulate.a = 0.25
 
 func _on_SearchBar_text_changed(new_text: String) -> void:
+	# clear selected item
+	if !selected_item.empty():
+		var selected_slot: TextureRect = $VBoxContainer/GridContainer.get_child(selected_item["slot_number"])
+		match selected_item["item_type"]:
+			ITEM_TYPES.STAFF:
+				selected_slot.texture = blue_staff_texture
+			ITEM_TYPES.BOW:
+				selected_slot.texture = green_bow_texture
+			ITEM_TYPES.SWORD:
+				selected_slot.texture = orange_sword_texture
+			ITEM_TYPES.SHIELD:
+				selected_slot.texture = red_shield_texture
+		selected_item = {}
+	
 	if new_text.empty():
 		can_swap = true
 		for i in slot_count:

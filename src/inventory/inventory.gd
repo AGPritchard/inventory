@@ -122,7 +122,7 @@ func _on_item_slot_mouse_exited(slot_number: int) -> void:
 
 func _on_SortButton_pressed() -> void:
 	# sort inventory
-	for i in range(1, inventory.size(), 1):
+	for i in range(1, slot_count, 1):
 		var item = inventory[i]
 		var j = i - 1
 		while j >= 0 and item < inventory[j]:
@@ -131,7 +131,7 @@ func _on_SortButton_pressed() -> void:
 		inventory[j + 1] = item
 	
 	# update ui
-	for i in inventory.size():
+	for i in slot_count:
 		var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
 		match inventory[i]:
 			ITEM_TYPES.STAFF:
@@ -195,12 +195,12 @@ func _on_ResetButton_pressed() -> void:
 func _on_SearchBar_text_changed(new_text: String) -> void:
 	if new_text.empty():
 		can_swap = true
-		for i in inventory.size():
+		for i in slot_count:
 			var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
 			item_slot.modulate.a = 1.0
 	else:
 		can_swap = false
-		for i in inventory.size():
+		for i in slot_count:
 			var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
 			
 			# reset alpha and then update if a match occurs

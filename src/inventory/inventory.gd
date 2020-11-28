@@ -65,20 +65,21 @@ func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 	if can_swap:
 		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
 			if selected_item.empty():
-				selected_item["slot_number"] = slot_number
-				selected_item["item_type"] = inventory[slot_number]
-				
-				# change to selected texture
-				var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
-				match inventory[slot_number]:
-					ITEM_TYPES.STAFF:
-						item_slot.texture = selected_blue_staff_texture
-					ITEM_TYPES.BOW:
-						item_slot.texture = selected_green_bow_texture
-					ITEM_TYPES.SWORD:
-						item_slot.texture = selected_orange_sword_texture
-					ITEM_TYPES.SHIELD:
-						item_slot.texture = selected_red_shield_texture
+				if inventory[slot_number] != ITEM_TYPES.NONE:
+					selected_item["slot_number"] = slot_number
+					selected_item["item_type"] = inventory[slot_number]
+					
+					# change to selected texture
+					var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
+					match inventory[slot_number]:
+						ITEM_TYPES.STAFF:
+							item_slot.texture = selected_blue_staff_texture
+						ITEM_TYPES.BOW:
+							item_slot.texture = selected_green_bow_texture
+						ITEM_TYPES.SWORD:
+							item_slot.texture = selected_orange_sword_texture
+						ITEM_TYPES.SHIELD:
+							item_slot.texture = selected_red_shield_texture
 			else:
 				var target_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
 				var selected_slot: TextureRect = $VBoxContainer/GridContainer.get_child(selected_item["slot_number"])

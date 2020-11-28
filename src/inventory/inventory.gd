@@ -20,6 +20,7 @@ var orange_sword_texture := preload("res://assets/items/orange_sword.png")
 var red_shield_texture := preload("res://assets/items/red_shield.png")
 
 func _ready() -> void:
+	VisualServer.set_default_clear_color(Color8(41, 30, 49, 255))
 	randomize()
 	
 	$GridContainer.columns = columns

@@ -48,6 +48,8 @@ func _ready() -> void:
 		inventory[i] = choice
 		
 		item_slot.connect("gui_input", self, "_on_item_slot_input", [i])
+		item_slot.connect("mouse_entered", self, "_on_item_slot_mouse_entered", [i])
+		item_slot.connect("mouse_exited", self, "_on_item_slot_mouse_exited", [i])
 		$GridContainer.add_child(item_slot)
 	
 	$GridContainer.set_anchors_and_margins_preset(Control.PRESET_CENTER)
@@ -76,3 +78,11 @@ func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 			
 			# clear selected item
 			selected_item = {}
+
+func _on_item_slot_mouse_entered(slot_number: int) -> void:
+	var item_slot: TextureRect = $GridContainer.get_child(slot_number)
+	item_slot.rect_scale = Vector2(1.1, 1.1)
+
+func _on_item_slot_mouse_exited(slot_number: int) -> void:
+	var item_slot: TextureRect = $GridContainer.get_child(slot_number)
+	item_slot.rect_scale = Vector2(1, 1)

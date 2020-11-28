@@ -34,12 +34,16 @@ func _ready() -> void:
 		match choice:
 			ITEM_TYPES.STAFF:
 				item_slot.texture = blue_staff_texture
+				item_slot.hint_tooltip = "Blue Staff"
 			ITEM_TYPES.BOW:
 				item_slot.texture = green_bow_texture
+				item_slot.hint_tooltip = "Green Bow"
 			ITEM_TYPES.SWORD:
 				item_slot.texture = orange_sword_texture
+				item_slot.hint_tooltip = "Orange Sword"
 			ITEM_TYPES.SHIELD:
 				item_slot.texture = red_shield_texture
+				item_slot.hint_tooltip = "Red Shield"
 		
 		inventory[i] = choice
 		
@@ -64,6 +68,11 @@ func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 			var selected_item_texture := selected_slot.texture
 			selected_slot.texture = target_slot.texture
 			target_slot.texture = selected_item_texture
+			
+			# swap tooltips
+			var selected_item_tooltip := selected_slot.hint_tooltip
+			selected_slot.hint_tooltip = target_slot.hint_tooltip
+			target_slot.hint_tooltip = selected_item_tooltip
 			
 			# clear selected item
 			selected_item = {}

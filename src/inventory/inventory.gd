@@ -21,21 +21,23 @@ func _ready() -> void:
 	
 	$GridContainer.columns = columns
 	for i in slot_count:
-		var texture_rect = TextureRect.new()
-		texture_rect.name = str(i)
+		var item_slot = TextureRect.new()
+		item_slot.name = str(i)
 		
 		# pick a random item type
 		var choice: int = ITEM_TYPES.values()[randi() % ITEM_TYPES.size()]
 		match choice:
 			ITEM_TYPES.STAFF:
-				texture_rect.texture = blue_staff_texture
+				item_slot.texture = blue_staff_texture
 			ITEM_TYPES.BOW:
-				texture_rect.texture = green_bow_texture
+				item_slot.texture = green_bow_texture
 			ITEM_TYPES.SWORD:
-				texture_rect.texture = orange_sword_texture
+				item_slot.texture = orange_sword_texture
 			ITEM_TYPES.SHIELD:
-				texture_rect.texture = red_shield_texture
-			ITEM_TYPES.NONE:
-				continue
+				item_slot.texture = red_shield_texture
 		
-		$GridContainer.add_child(texture_rect)
+		item_slot.connect("gui_input", self, "_on_item_slot_input", [i])
+		$GridContainer.add_child(item_slot)
+
+func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
+	print(slot_number)

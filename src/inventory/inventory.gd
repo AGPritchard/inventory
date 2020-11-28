@@ -12,7 +12,7 @@ export(int) var slot_count := 9
 export(int) var columns := 3
 
 var inventory := {}
-var selected_item := {"slot_number": -1, "item_type": ITEM_TYPES.NONE}
+var selected_item := {}
 
 var blue_staff_texture := preload("res://assets/items/blue_staff.png")
 var green_bow_texture := preload("res://assets/items/green_bow.png")
@@ -46,7 +46,7 @@ func _ready() -> void:
 
 func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
-		if selected_item["slot_number"] == -1:
+		if selected_item.empty():
 			selected_item["slot_number"] = slot_number
 			selected_item["item_type"] = inventory[slot_number]
 		else:
@@ -62,5 +62,4 @@ func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 			target_slot.texture = selected_item_texture
 			
 			# clear selected item
-			selected_item["slot_number"] = -1
-			selected_item["item_type"] = ITEM_TYPES.NONE
+			selected_item = {}

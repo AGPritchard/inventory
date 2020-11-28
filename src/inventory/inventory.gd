@@ -29,9 +29,6 @@ func _ready() -> void:
 	VisualServer.set_default_clear_color(Color8(41, 30, 49, 255))
 	randomize()
 	
-	# set icon slot theme
-	var slot_theme := Theme
-	
 	$VBoxContainer/GridContainer.columns = columns
 	for i in slot_count:
 		var item_slot = TextureRect.new()

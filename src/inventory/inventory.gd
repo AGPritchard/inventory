@@ -159,7 +159,7 @@ func _on_SortButton_pressed() -> void:
 			if !($VBoxContainer/HBoxContainer/SearchBar.text.to_upper() in item_slot.hint_tooltip.to_upper()):
 				item_slot.modulate.a = 0.25
 
-func _on_RandomiseButton_pressed() -> void:
+func _on_ResetButton_pressed() -> void:
 	# clear inventory
 	inventory = {}
 	selected_item = {}

@@ -55,17 +55,17 @@ margin_bottom = 44.0
 custom_constants/separation = 5
 
 [node name="SortButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_right = 40.0
+margin_right = 56.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "Sort"
 
-[node name="RandomiseButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 45.0
+[node name="ResetButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 61.0
 margin_right = 118.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-text = "Randomise"
+text = "Reset"
 
 [node name="SearchBar" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
 margin_left = 123.0
@@ -75,5 +75,5 @@ size_flags_horizontal = 3
 clear_button_enabled = true
 placeholder_text = "search..."
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/SortButton" to="." method="_on_SortButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/RandomiseButton" to="." method="_on_RandomiseButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/ResetButton" to="." method="_on_ResetButton_pressed"]
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/SearchBar" to="." method="_on_SearchBar_text_changed"]

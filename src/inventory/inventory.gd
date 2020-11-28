@@ -23,7 +23,7 @@ func _ready() -> void:
 	VisualServer.set_default_clear_color(Color8(41, 30, 49, 255))
 	randomize()
 	
-	$GridContainer.columns = columns
+	$VBoxContainer/GridContainer.columns = columns
 	for i in slot_count:
 		var item_slot = TextureRect.new()
 		item_slot.rect_min_size = Vector2(20, 20)
@@ -51,9 +51,9 @@ func _ready() -> void:
 		item_slot.connect("gui_input", self, "_on_item_slot_input", [i])
 		item_slot.connect("mouse_entered", self, "_on_item_slot_mouse_entered", [i])
 		item_slot.connect("mouse_exited", self, "_on_item_slot_mouse_exited", [i])
-		$GridContainer.add_child(item_slot)
+		$VBoxContainer/GridContainer.add_child(item_slot)
 	
-	$GridContainer.set_anchors_and_margins_preset(Control.PRESET_CENTER)
+	$VBoxContainer.set_anchors_and_margins_preset(Control.PRESET_CENTER)
 
 func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
@@ -66,8 +66,8 @@ func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 			inventory[slot_number] = selected_item["item_type"]
 			
 			# swap textures
-			var target_slot: TextureRect = $GridContainer.get_child(slot_number)
-			var selected_slot: TextureRect = $GridContainer.get_child(selected_item["slot_number"])
+			var target_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
+			var selected_slot: TextureRect = $VBoxContainer/GridContainer.get_child(selected_item["slot_number"])
 			var selected_item_texture := selected_slot.texture
 			selected_slot.texture = target_slot.texture
 			target_slot.texture = selected_item_texture
@@ -81,9 +81,15 @@ func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 			selected_item = {}
 
 func _on_item_slot_mouse_entered(slot_number: int) -> void:
-	var item_slot: TextureRect = $GridContainer.get_child(slot_number)
+	var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
 	item_slot.rect_scale = Vector2(1.1, 1.1)
 
 func _on_item_slot_mouse_exited(slot_number: int) -> void:
-	var item_slot: TextureRect = $GridContainer.get_child(slot_number)
+	var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
 	item_slot.rect_scale = Vector2(1, 1)
+
+func _on_SortButton_pressed() -> void:
+	pass
+
+func _on_SearchBar_text_entered(new_text: String) -> void:
+	pass

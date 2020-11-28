@@ -13,6 +13,7 @@ export(int) var columns := 3
 
 var inventory := {}
 var selected_item := {}
+var can_swap := true
 
 var blue_staff_texture := preload("res://assets/items/blue_staff.png")
 var green_bow_texture := preload("res://assets/items/green_bow.png")
@@ -56,29 +57,30 @@ func _ready() -> void:
 	$VBoxContainer.set_anchors_and_margins_preset(Control.PRESET_CENTER)
 
 func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
-		if selected_item.empty():
-			selected_item["slot_number"] = slot_number
-			selected_item["item_type"] = inventory[slot_number]
-		else:
-			# swap items
-			inventory[selected_item["slot_number"]] = inventory[slot_number]
-			inventory[slot_number] = selected_item["item_type"]
-			
-			# swap textures
-			var target_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
-			var selected_slot: TextureRect = $VBoxContainer/GridContainer.get_child(selected_item["slot_number"])
-			var selected_item_texture := selected_slot.texture
-			selected_slot.texture = target_slot.texture
-			target_slot.texture = selected_item_texture
-			
-			# swap tooltips
-			var selected_item_tooltip := selected_slot.hint_tooltip
-			selected_slot.hint_tooltip = target_slot.hint_tooltip
-			target_slot.hint_tooltip = selected_item_tooltip
-			
-			# clear selected item
-			selected_item = {}
+	if can_swap:
+		if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
+			if selected_item.empty():
+				selected_item["slot_number"] = slot_number
+				selected_item["item_type"] = inventory[slot_number]
+			else:
+				# swap items
+				inventory[selected_item["slot_number"]] = inventory[slot_number]
+				inventory[slot_number] = selected_item["item_type"]
+				
+				# swap textures
+				var target_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
+				var selected_slot: TextureRect = $VBoxContainer/GridContainer.get_child(selected_item["slot_number"])
+				var selected_item_texture := selected_slot.texture
+				selected_slot.texture = target_slot.texture
+				target_slot.texture = selected_item_texture
+				
+				# swap tooltips
+				var selected_item_tooltip := selected_slot.hint_tooltip
+				selected_slot.hint_tooltip = target_slot.hint_tooltip
+				target_slot.hint_tooltip = selected_item_tooltip
+				
+				# clear selected item
+				selected_item = {}
 
 func _on_item_slot_mouse_entered(slot_number: int) -> void:
 	var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(slot_number)
@@ -126,10 +128,12 @@ func _on_SortButton_pressed() -> void:
 
 func _on_SearchBar_text_changed(new_text: String) -> void:
 	if new_text.empty():
+		can_swap = true
 		for i in inventory.size():
 			var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
 			item_slot.modulate.a = 1.0
 	else:
+		can_swap = false
 		for i in inventory.size():
 			var item_slot: TextureRect = $VBoxContainer/GridContainer.get_child(i)
 			

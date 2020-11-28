@@ -12,6 +12,7 @@ export(int) var slot_count := 9
 export(int) var columns := 3
 
 var inventory := {}
+var selected_item := {"slot_number": -1, "item_type": ITEM_TYPES.NONE}
 
 var blue_staff_texture := preload("res://assets/items/blue_staff.png")
 var green_bow_texture := preload("res://assets/items/green_bow.png")
@@ -44,5 +45,22 @@ func _ready() -> void:
 		$GridContainer.add_child(item_slot)
 
 func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
-	if event is InputEventMouseButton and event.is_pressed():
-		print(inventory[slot_number])
+	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():
+		if selected_item["slot_number"] == -1:
+			selected_item["slot_number"] = slot_number
+			selected_item["item_type"] = inventory[slot_number]
+		else:
+			# swap items
+			inventory[selected_item["slot_number"]] = inventory[slot_number]
+			inventory[slot_number] = selected_item["item_type"]
+			
+			# swap textures
+			var target_slot: TextureRect = $GridContainer.get_child(slot_number)
+			var selected_slot: TextureRect = $GridContainer.get_child(selected_item["slot_number"])
+			var selected_item_texture := selected_slot.texture
+			selected_slot.texture = target_slot.texture
+			target_slot.texture = selected_item_texture
+			
+			# clear selected item
+			selected_item["slot_number"] = -1
+			selected_item["item_type"] = ITEM_TYPES.NONE

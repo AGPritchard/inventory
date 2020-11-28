@@ -15,6 +15,8 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+slot_count = 100
+columns = 10
 
 [node name="GridContainer" type="GridContainer" parent="."]
 anchor_left = 0.5

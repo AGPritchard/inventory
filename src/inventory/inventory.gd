@@ -25,6 +25,8 @@ func _ready() -> void:
 	$GridContainer.columns = columns
 	for i in slot_count:
 		var item_slot = TextureRect.new()
+		item_slot.rect_min_size = Vector2(20, 20)
+		item_slot.expand = true
 		item_slot.name = str(i)
 		
 		# pick a random item type
@@ -43,6 +45,8 @@ func _ready() -> void:
 		
 		item_slot.connect("gui_input", self, "_on_item_slot_input", [i])
 		$GridContainer.add_child(item_slot)
+	
+	$GridContainer.set_anchors_and_margins_preset(Control.PRESET_CENTER)
 
 func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT and event.is_pressed():

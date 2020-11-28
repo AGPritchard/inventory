@@ -11,6 +11,8 @@ enum ITEM_TYPES {
 export(int) var slot_count := 9
 export(int) var columns := 3
 
+var inventory := {}
+
 var blue_staff_texture := preload("res://assets/items/blue_staff.png")
 var green_bow_texture := preload("res://assets/items/green_bow.png")
 var orange_sword_texture := preload("res://assets/items/orange_sword.png")
@@ -36,8 +38,11 @@ func _ready() -> void:
 			ITEM_TYPES.SHIELD:
 				item_slot.texture = red_shield_texture
 		
+		inventory[i] = choice
+		
 		item_slot.connect("gui_input", self, "_on_item_slot_input", [i])
 		$GridContainer.add_child(item_slot)
 
 func _on_item_slot_input(event: InputEvent, slot_number: int) -> void:
-	print(slot_number)
+	if event is InputEventMouseButton and event.is_pressed():
+		print(inventory[slot_number])

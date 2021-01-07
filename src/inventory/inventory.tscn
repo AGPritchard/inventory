@@ -3,11 +3,11 @@
 [ext_resource path="res://src/inventory/inventory.gd" type="Script" id=1]
 [ext_resource path="res://assets/font/m6x11.ttf" type="DynamicFontData" id=2]
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 2 )
 
-[sub_resource type="Theme" id=5]
-default_font = SubResource( 4 )
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
 
 [node name="Inventory" type="Control"]
 anchor_left = 0.5
@@ -18,7 +18,7 @@ margin_left = -20.0
 margin_top = -20.0
 margin_right = 20.0
 margin_bottom = 20.0
-theme = SubResource( 5 )
+theme = SubResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -41,7 +41,7 @@ __meta__ = {
 }
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
-margin_right = 193.0
+margin_right = 167.0
 custom_constants/vseparation = 2
 custom_constants/hseparation = 2
 __meta__ = {
@@ -50,26 +50,26 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 20.0
-margin_right = 193.0
+margin_right = 167.0
 margin_bottom = 44.0
 custom_constants/separation = 5
 
 [node name="SortButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_right = 56.0
+margin_right = 40.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "Sort"
 
 [node name="ResetButton" type="Button" parent="VBoxContainer/HBoxContainer"]
-margin_left = 61.0
-margin_right = 118.0
+margin_left = 45.0
+margin_right = 92.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 text = "Reset"
 
 [node name="SearchBar" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
-margin_left = 123.0
-margin_right = 193.0
+margin_left = 97.0
+margin_right = 167.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
 clear_button_enabled = true
